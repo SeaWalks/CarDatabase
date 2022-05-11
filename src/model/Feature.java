@@ -9,9 +9,11 @@ public class Feature {
     @Column(name = "feature_id", nullable = false) 
     private int featureId;
 
+
+    @Column(length=20)
     private String featureName;
 
-    //Many-to-many association with models
+    //Many-to-many association with Model
     @JoinTable(
         name = "models",
         joinColumns = @JoinColumn(name = "feature_id"),
@@ -20,7 +22,7 @@ public class Feature {
     @ManyToMany
     private Set<Model> models;
     
-    //Many-to-Many association with Trims 
+    //Many-to-Many association with Trim 
     @JoinTable(
         name = "trims",
         joinColumns = @JoinColumn(name = "feature_id"),
@@ -29,7 +31,7 @@ public class Feature {
     @ManyToMany
     private Set<Trim> trims;
 
-    //Many-to-Many association with Packages
+    //Many-to-Many association with Package
     @JoinTable(
         name = "packages",
         joinColumns = @JoinColumn(name = "feature_id"),

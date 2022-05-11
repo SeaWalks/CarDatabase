@@ -10,14 +10,17 @@ public class Model {
     @Column(name = "model_id", nullable = false) 
     private int modelId;
 
+    @Column(length=20)
     private String modelName;
     private int year;
 
+    //Parent of uni-Directional One-to-many with Trim (parent)
+    //A model should know its trims; trims do not need to know their parent. I think.
     @OneToMany
     @JoinColumn(name = "model_id")
     private List<Trim> trims;
 
-
+    //Many-to-many with features.
     @ManyToMany(mappedBy = "features")
     private Set<Feature> features;
 

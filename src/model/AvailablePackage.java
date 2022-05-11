@@ -5,7 +5,7 @@ import java.util.Set;
 import jakarta.persistence.*;
 
 @Entity(name = "availablePackages")
-public class AvailablePackages {
+public class AvailablePackage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "visitor_id")

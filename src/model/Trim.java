@@ -1,52 +1,95 @@
 package model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity(name = "trims")
 public class Trim {
     @Id
-    @JoinColumn(name = "feature_id") 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "trim_id", nullable = false) 
+    private int trimId;
+    private String trimName;
+    private int cost;
+
+    //Unidirectional Many-To-One- a child doesn't need to know its parent
+    //A trim does not need to know its model?
     @ManyToOne
-    private Feature feature;
+    @JoinColumn(name = "model_id")
+    private Model model;
 
-    @Id
-    @JoinColumn(name = "feature_id") 
-    @ManyToOne
-    private int featureId;
-
-    /*Associations.
-    We need: 
-    One to many with modelFeatures (JunctionTable)
-    One to many with trimmFeatures (Junction)
-    One to many with packageFeatures (Junction)*/
-
+    //Unidirectional One-To-Many: Parents know their children, children don't know parents.
+    //A trim does not need to know its automobiles
     @OneToMany
-    @JoinColumn(name = "feature_id")
-    private ModelFeatures modealFeatures;
+    @JoinColumn(name = "trim_id")
+    private List<Automobile> automobiles;
+
+    //Unidirectional One-To-Many: Parents know their children, children don't know parents.
+    @OneToMany
+    @JoinColumn(name = "trim_id")
+    private List<AvailablePackage> availablePackages;
     
-    @OneToMany
-    @JoinColumn(name = "feature_id")
-    private TrimFeatures trimFeatures;
-
-    @OneToMany
-    @JoinColumn(name = "feature_id")
-    private PackageFeatures packageFeatures;
-
-    public Feature() {
+    public Trim() {
     }
 
-    public Feature(int featureId, String featureName, ModelFeatures modelFeatures, TrimFeatures trimFeatures, PackageFeatures packageFeatures) {
-        this.featureId = featureId;
-        this.featureName = featureName;
-        this.modelFeatures = modelFeatures;
-        this.trimFeatures = trimFeatures;
-        this.packageFeatures = packageFeatures;
+    public Trim(int trimId, String trimName, int cost, Model model) {
+        this.trimId = trimId;
+        this.trimName = trimName;
+        this.cost = cost;
+        this.model = model;
     }
 
     @Override
     public String toString() {
-        return "Feature: " + featureName + " (ID " + featureId + ")";
+        return "Trim: " + trimName + " (ID " + trimId + ")";
     }
 
+    public int getTrimId() {
+        return trimId;
+    }
 
+    public void setTrimId(int trimId) {
+        this.trimId = trimId;
+    }
+
+    public String getTrimName() {
+        return trimName;
+    }
+
+    public void setTrimName(String trimName) {
+        this.trimName = trimName;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public List<Automobile> getAutomobiles() {
+        return automobiles;
+    }
+
+    public void setAutomobiles(List<Automobile> automobiles) {
+        this.automobiles = automobiles;
+    }
+
+    public List<AvailablePackage> getAvailablePackages() {
+        return availablePackages;
+    }
+
+    public void setAvailablePackages(List<AvailablePackage> availablePackages) {
+        this.availablePackages = availablePackages;
+    }
 }
