@@ -2,8 +2,8 @@ package model;
 import java.util.Set;
 import jakarta.persistence.*;
 
-@Entity(name = "feature")
-public class Feature {
+@Entity(name = "automobiles")
+public class Automobiles {
     @Id
     @Column(name = "feature_id", nullable = false) 
     private int featureId;

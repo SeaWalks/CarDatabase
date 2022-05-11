@@ -4,8 +4,8 @@ import java.util.Set;
 
 import jakarta.persistence.*;
 
-@Entity(name = "visitors")
-public class Visitor {
+@Entity(name = "availablePackages")
+public class AvailablePackages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "visitor_id")
