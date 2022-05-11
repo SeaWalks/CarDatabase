@@ -1,48 +1,78 @@
 package model;
-
+import java.util.List;
+import java.util.Set;
 import jakarta.persistence.*;
 
 @Entity(name = "models")
 public class Model {
     @Id
-    @Column(name = "feature_id", nullable = false) 
-    private int featureId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "model_id", nullable = false) 
+    private int modelId;
 
-    private String featureName;
-
-    /*Associations.
-    We need: 
-    One to many with modelFeatures (JunctionTable)
-    One to many with trimmFeatures (Junction)
-    One to many with packageFeatures (Junction)*/
+    private String modelName;
+    private int year;
 
     @OneToMany
-    @JoinColumn(name = "feature_id")
-    private ModelFeatures modealFeatures;
-    
-    @OneToMany
-    @JoinColumn(name = "feature_id")
-    private TrimFeatures trimFeatures;
+    @JoinColumn(name = "model_id")
+    private List<Trim> trims;
 
-    @OneToMany
-    @JoinColumn(name = "feature_id")
-    private PackageFeatures packageFeatures;
 
-    public Feature() {
+    @ManyToMany(mappedBy = "features")
+    private Set<Feature> features;
+
+    public Model() {
     }
 
-    public Feature(int featureId, String featureName, ModelFeatures modelFeatures, TrimFeatures trimFeatures, PackageFeatures packageFeatures) {
-        this.featureId = featureId;
-        this.featureName = featureName;
-        this.modelFeatures = modelFeatures;
-        this.trimFeatures = trimFeatures;
-        this.packageFeatures = packageFeatures;
+    public Model(int modelId, String modelName, int year) {
+        this.modelId = modelId;
+        this.modelName = modelName;
+        this.year = year;
     }
 
     @Override
     public String toString() {
-        return "Feature: " + featureName + " (ID " + featureId + ")";
+        return "Model: " + modelName + " (ID " + modelId + ")";
     }
 
+    public int getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(int modelId) {
+        this.modelId = modelId;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public Set<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(Set<Feature> features) {
+        this.features = features;
+    }
+
+    public List<Trim> getTrims() {
+        return trims;
+    }
+
+    public void setTrims(List<Trim> trims) {
+        this.trims = trims;
+    }
 
 }

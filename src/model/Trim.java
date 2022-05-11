@@ -3,7 +3,7 @@ package model;
 import jakarta.persistence.*;
 
 @Entity(name = "trims")
-public class Trims {
+public class Trim {
     @Id
     @JoinColumn(name = "feature_id") 
     @ManyToOne
