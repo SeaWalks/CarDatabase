@@ -1,8 +1,8 @@
 package model;
 import java.util.Set;
 import jakarta.persistence.*;
-
-@Entity(name = "feature")
+//Should be done, I think.
+@Entity(name = "features")
 public class Feature {
     @Id
     @Column(name = "feature_id", nullable = false) 
@@ -12,13 +12,13 @@ public class Feature {
 
 
     @JoinTable(
-        name = "modelSet",
+        name = "models",
         joinColumns = @JoinColumn(name = "feature_id"),
         inverseJoinColumns = @JoinColumn(name = "model_id")
     )
 
     @ManyToMany
-    private Set<Model> modelSet;
+    private Set<Model> models;
     
     public Feature() {
     }
@@ -49,12 +49,12 @@ public class Feature {
         this.featureName = featureName;
     }
 
-    public Set<Model> getModelSet() {
-        return modelSet;
+    public Set<Model> getmodels() {
+        return models;
     }
 
-    public void setModelSet(Set<Model> modelSet) {
-        this.modelSet = modelSet;
+    public void setmodels(Set<Model> models) {
+        this.models = models;
     }
 
 }

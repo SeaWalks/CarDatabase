@@ -3,7 +3,7 @@ package model;
 import jakarta.persistence.*;
 
 @Entity(name = "models")
-public class Models {
+public class Model {
     @Id
     @Column(name = "feature_id", nullable = false) 
     private int featureId;
