@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Automobile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "automobile_id", nullable = false) 
+    @Column(name = "automobile_id") 
     private int automobileId;
 
-    @Column(unique=true)
+    @Column(unique = true, nullable = false)
     private int vin;
 
 

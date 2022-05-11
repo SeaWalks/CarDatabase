@@ -8,11 +8,13 @@ import jakarta.persistence.*;
 public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "model_id", nullable = false)
+    @Column(name = "model_id")
     private int modelId;
 
-    @Column(length = 20)
+    @Column(length = 20, nullable = false)
     private String modelName;
+
+    @Column(nullable = false)
     private int year;
 
     // Unidirectional One-To-Many from Model->Feature

@@ -8,19 +8,16 @@ import jakarta.persistence.*;
 public class AvailablePackage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "visitor_id")
-    private int visitorId;
+    @Column(name = "available_id")
+    private int availableId;
 
-    @Column(length = 100, unique = true)
+    @Column(nullable = false)
+    private int cost; 
+
+    @Column(length = 100, unique = true, nullable = false)
     private String name;
 
-    // Many-to-many with Museums, via the assocation (junction) class MuseumVisit.
-    @OneToMany(mappedBy = "visitor")
-    private Set<MuseumVisit> visits;
 
-    // Many-to-many with Museums, with no association class.
-    @ManyToMany(mappedBy = "members")
-    private Set<Museum> memberships;
 
     public AvailablePackage() {
     }
