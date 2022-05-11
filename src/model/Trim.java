@@ -1,7 +1,5 @@
 package model;
-
 import java.util.List;
-
 import jakarta.persistence.*;
 
 @Entity(name = "trims")
@@ -11,7 +9,7 @@ public class Trim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trim_id")
     private int trimId;
-    
+
     @Column(nullable = false)
     private String trimName;
 
@@ -33,12 +31,65 @@ public class Trim {
     @JoinColumn(name = "model_id")
     private Model model;
 
+
+
     public Trim() {
+    }
+
+    //Doc says we need model here; maybe we need automobile too?
+    public Trim(String trimName, int cost, Model model) {
+        this.trimName = trimName;
+        this.cost = cost;
+        this.model = model;
     }
 
     @Override
     public String toString() {
         return "Trim: " + trimName + " (ID " + trimId + ")";
+    }
+
+    public int getTrimId() {
+        return trimId;
+    }
+
+    public String getTrimName() {
+        return trimName;
+    }
+
+    public void setTrimName(String trimName) {
+        this.trimName = trimName;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
+    }
+
+    public Automobile getAutomobile() {
+        return automobile;
+    }
+
+    public void setAutomobile(Automobile automobile) {
+        this.automobile = automobile;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 
 }
