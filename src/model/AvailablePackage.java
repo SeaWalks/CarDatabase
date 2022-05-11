@@ -22,50 +22,14 @@ public class AvailablePackage {
     @ManyToMany(mappedBy = "members")
     private Set<Museum> memberships;
 
-    public Visitor() {
+    public AvailablePackage() {
     }
 
-    public Visitor(int visitorId, String name) {
-        this.visitorId = visitorId;
-        this.name = name;
-    }
+
     @Override
     public String toString() {
         return "Visitor " + name + " (ID " + visitorId + ")";
     }
 
-
-    public int getVisitorId() {
-        return visitorId;
-    }
-
-    public void setVisitorId(int visitorId) {
-        this.visitorId = visitorId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public Set<Museum> getMemberships() {
-        return memberships;
-    }
-
-    public void setMemberships(Set<Museum> memberships) {
-        this.memberships = memberships;
-    }
-
-    public Set<MuseumVisit> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(Set<MuseumVisit> visits) {
-        this.visits = visits;
-    }
 
 }

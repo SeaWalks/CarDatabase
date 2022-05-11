@@ -1,7 +1,6 @@
 package model;
-import java.util.Set;
 import jakarta.persistence.*;
-//Should be done, I think.
+//Should be done.
 @Entity(name = "features")
 public class Feature {
     @Id
@@ -10,88 +9,17 @@ public class Feature {
     private int featureId;
 
 
-    @Column(length=20)
+    @Column(length=20, unique = true)
     private String featureName;
 
-    //Many-to-many association with Model
-    @JoinTable(
-        name = "models",
-        joinColumns = @JoinColumn(name = "feature_id"),
-        inverseJoinColumns = @JoinColumn(name = "model_id")
-    )
-    @ManyToMany
-    private Set<Model> models;
-    
-    //Many-to-Many association with Trim 
-    @JoinTable(
-        name = "trims",
-        joinColumns = @JoinColumn(name = "feature_id"),
-        inverseJoinColumns = @JoinColumn(name = "trim_id")
-    )
-    @ManyToMany
-    private Set<Trim> trims;
-
-    //Many-to-Many association with Package
-    @JoinTable(
-        name = "packages",
-        joinColumns = @JoinColumn(name = "feature_id"),
-        inverseJoinColumns = @JoinColumn(name = "package_id")
-    )
-    @ManyToMany
-    private Set<Package> packages;
 
     
     public Feature() {
     }
 
-    public Feature(int featureId, String featureName) {
-        this.featureId = featureId;
-        this.featureName = featureName;
-    }
-
     @Override
     public String toString() {
         return "Feature: " + featureName + " (ID " + featureId + ")";
-    }
-
-    public int getFeatureId() {
-        return featureId;
-    }
-
-    public void setFeatureId(int featureId) {
-        this.featureId = featureId;
-    }
-
-    public String getFeatureName() {
-        return featureName;
-    }
-
-    public void setFeatureName(String featureName) {
-        this.featureName = featureName;
-    }
-
-    public Set<Model> getModels() {
-        return models;
-    }
-
-    public void setModels(Set<Model> models) {
-        this.models = models;
-    }
-
-    public Set<Trim> getTrims() {
-        return trims;
-    }
-
-    public void setTrims(Set<Trim> trims) {
-        this.trims = trims;
-    }
-
-    public Set<Package> getPackages() {
-        return packages;
-    }
-
-    public void setPackages(Set<Package> packages) {
-        this.packages = packages;
     }
 
 }
