@@ -16,14 +16,12 @@ public class AvailablePackage {
     @ManyToOne
     private Trim trim;
 
+
+    //Many-To-One between AvailablePackages->Package
     @JoinColumn(name = "package_id")
     @ManyToOne
     private Package myBigPackage; //package is a reserved word for java?
 
-
-    // Many-To-Many relationship between Automobile and AvailablePackage.
-    @ManyToMany
-    private Set<Automobile> automobiles;
 
     public AvailablePackage() {
     }
@@ -67,14 +65,6 @@ public class AvailablePackage {
 
     public void setPackage(Package myBigPackage) {
         this.myBigPackage = myBigPackage;
-    }
-
-    public Set<Automobile> getAutomobiles() {
-        return automobiles;
-    }
-
-    public void setAutomobiles(Set<Automobile> automobiles) {
-        this.automobiles = automobiles;
     }
 
 }
