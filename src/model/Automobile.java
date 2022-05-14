@@ -1,32 +1,28 @@
 package model;
-import java.util.Set;
 import jakarta.persistence.*;
 
 @Entity(name = "automobiles")
 public class Automobile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "automobile_id") 
+    @Column(name = "automobile_id")
     private int automobileId;
 
     @Column(unique = true, nullable = false)
     private int vin;
 
-    //Many-To-Many relationship between Automobiles and Available Packages.
-    @JoinTable(
-        name = "ChosenPackage",                                     //Name of junction table; ChosenPackage used.
-        joinColumns = @JoinColumn(name = "auto_id"),                //Name of key from this (automobile) table
-        inverseJoinColumns = @JoinColumn(name = "available_id")     //Name of key from AvailablePackage table
-    )
-    @ManyToMany
-    private Set<AvailablePackage> availablePackages;
+    // Unidirectional Many-To-One from Automobile->Trim
+    @ManyToOne
+    @JoinColumn(name = "trim_id")
+    private Trim trim;
 
     public Automobile() {
     }
 
     public Automobile(int vin) {
-        //No constructor for auto_id because it is auto-generated
-        //No constructor for the set Available packages b.c we dont need it to have an automobile i think?
+        // No constructor for auto_id because it is auto-generated
+        // No constructor for the set Available packages b.c we dont need it to have an
+        // automobile i think?
         this.vin = vin;
     }
 
@@ -47,12 +43,12 @@ public class Automobile {
         this.vin = vin;
     }
 
-    public Set<AvailablePackage> getAvailablePackages() {
-        return availablePackages;
+    public Trim getTrim() {
+        return trim;
     }
 
-    public void setAvailablePackages(Set<AvailablePackage> availablePackages) {
-        this.availablePackages = availablePackages;
+    public void setTrim(Trim trim) {
+        this.trim = trim;
     }
 
 }

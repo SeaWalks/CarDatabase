@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Package {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "model_id", nullable = false)
+    @Column(name = "package_id", nullable = false)
     private int packageId;
 
     @Column(length = 20)
@@ -15,7 +15,7 @@ public class Package {
 
     // Unidirectional One-to-Many from Package->Feature
     @OneToMany
-    @JoinColumn(name = "feature_id")
+    @JoinColumn(name = "package_id")
     private List<Feature> features;
 
     public Package() {
