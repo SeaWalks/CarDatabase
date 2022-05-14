@@ -22,7 +22,7 @@ public class AvailablePackage {
 
 
     // Many-To-Many relationship between Automobile and AvailablePackage.
-    @ManyToMany(mappedBy = "ChosenPackage")
+    @ManyToMany
     private Set<Automobile> automobiles;
 
     public AvailablePackage() {

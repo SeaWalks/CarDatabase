@@ -13,12 +13,12 @@ public class Automobile {
     private int vin;
 
     //Many-To-Many relationship between Automobiles and Available Packages.
-    @ManyToMany
     @JoinTable(
         name = "ChosenPackage",                                     //Name of junction table; ChosenPackage used.
         joinColumns = @JoinColumn(name = "auto_id"),                //Name of key from this (automobile) table
         inverseJoinColumns = @JoinColumn(name = "available_id")     //Name of key from AvailablePackage table
     )
+    @ManyToMany
     private Set<AvailablePackage> availablePackages;
 
     public Automobile() {

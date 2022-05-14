@@ -23,7 +23,7 @@ public class Model {
 
     //BiDirectional  One-To-Many between Model & Trim
     //One model has many trims
-    @OneToMany(mappedBy = "trims")
+    @OneToMany(mappedBy = "model")
     private List<Trim> trims;
 
     public Model() {

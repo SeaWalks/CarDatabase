@@ -23,7 +23,7 @@ public class Trim {
 
     // Unidirectional Many-To-One from Automobile->Trim
     @ManyToOne
-    @JoinColumn(name = "trim_id")
+    @JoinColumn(name = "automobile_id")
     private Automobile automobile;
 
     // Bidirectional Many-To-One between Trim & Model; Model = parent, trim = child
