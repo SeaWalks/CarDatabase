@@ -91,5 +91,4 @@ public class Trim {
     public void setModel(Model model) {
         this.model = model;
     }
-
 }

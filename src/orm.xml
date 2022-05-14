@@ -5,7 +5,7 @@
     version="2.0">
     <persistence-unit-metadata>
         <persistence-unit-defaults>
-            <schema>museums2</schema>
+            <schema>cardb</schema>
         </persistence-unit-defaults>
     </persistence-unit-metadata>
 </entity-mappings>
