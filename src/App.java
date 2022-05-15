@@ -1,5 +1,10 @@
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+
+import org.eclipse.persistence.internal.jpa.deployment.PersistenceUnitProcessor.Mode;
+
 import jakarta.persistence.*;
 import model.*;
 import model.Package; //Explicit import is good for "Package"
@@ -8,7 +13,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
         EntityManager em = factory.createEntityManager();
-        System.out.println("Hopefully this works.");
         //Add Features to database
         em.getTransaction().begin();
         Feature leatherSeats = new Feature("Leather Seats");
@@ -22,7 +26,22 @@ public class App {
         Feature adaptiveCruise = new Feature("Adaptive Cruise Control");
         //Add Packages to database
         Package theater = new Package("Theater Package");
-        
+        Package amazon = new Package("Amazon Theater Package");
+        Package safety = new Package ("Safety Package");
+        //Add PackageFeatures to database
+        PackageFeature a1 = new PackageFeature(theater, rearScreens);
+        PackageFeature a2 = new PackageFeature(amazon, rearScreens);
+        PackageFeature a3 = new PackageFeature(amazon, fireTV);
+        PackageFeature a4 = new PackageFeature(safety, adaptiveCruise);
+        //Add Models to database
+        Model pacifica = new Model("Pacifica", 2022);
+        Model pacificaHybrid21 = new Model("Pacifica Hybrid", 2022);
+        Model pacificaHybrid22 = new Model("Pacifica Hybrid", 2021);
+        //Add Trims to database
+
+
+
+
         
         em.persist(hybridEngine);
         em.persist(powerDoors);
@@ -31,6 +50,11 @@ public class App {
         em.persist(rearScreens);
         em.persist(awd);
         em.persist(adaptiveCruise);
+        em.persist(theater);
+        em.persist(amazon);
+
+        em.persist(safety);
+        em.persist(asdf);
 
     
         em.getTransaction().commit();

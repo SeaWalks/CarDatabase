@@ -17,7 +17,7 @@ public class Package {
     //One Package has many Features; Parent knows child, child doesn't know parents.
     @OneToMany(mappedBy = "myPackage")
     private Set<PackageFeature> packageFeatures;
-
+    
     //No link back to availablePackages to keep it unidirectional. I think.
 
     public Package() {
