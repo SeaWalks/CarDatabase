@@ -1,4 +1,6 @@
 package model;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -28,7 +30,7 @@ public class Automobile {
     @JoinColumn(name="trim_id")
     private Trim trim;
 
-
+    //Constructors
     public Automobile() {
     }
 
@@ -36,6 +38,26 @@ public class Automobile {
         this.vin = vin;
     }
 
+    //"Adding Application Logic"
+    public Set<Feature> getFeatures(){
+        //
+        Set featureSet = new HashSet<Feature>();
+        this.getTrim().getTrimFeatures();
+        this.getTrim().getModel().getModelFeatures();
+        this.getAvailablePackages().
+
+    }
+    public double stickerPrice(){
+        //Needs to be tested.
+        double total = 0;
+        total+=this.getTrim().getCost();
+        Set<AvailablePackage> allPackages = this.getAvailablePackages();
+        Iterator<AvailablePackage> packageIterator = allPackages.iterator();
+        while(packageIterator.hasNext()){
+            total+=packageIterator.next().getCost();
+        }
+        return total;
+    }
     @Override
     public String toString() {
         return "VIN: " + vin + " (ID " + automobileId + ")";
