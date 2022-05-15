@@ -8,7 +8,7 @@ public class Feature {
     @Column(name = "feature_id") 
     private int featureId;
 
-    @Column(length=20, unique = true, nullable = false)
+    @Column(length=50, unique = true, nullable = false)
     private String featureName;
 
     public Feature() {
