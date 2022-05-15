@@ -34,5 +34,5 @@ public class Feature {
     public void setFeatureName(String featureName) {
         this.featureName = featureName;
     }
-
+    
 }

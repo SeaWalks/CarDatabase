@@ -18,4 +18,30 @@ public class PackageFeature {
     @ManyToOne
     private Package myPackage;
 
+    public Feature getFeature() {
+        return feature;
+    }
+
+    public void setFeature(Feature feature) {
+        this.feature = feature;
+    }
+
+    public Package getPackage() {
+        return myPackage;
+    }
+
+    public void setPackage(Package myPackage) {
+        this.myPackage = myPackage;
+    }
+
+    public PackageFeature(){
+
+    }
+
+    public PackageFeature(Package myPackage, Feature feature) {
+        this.feature = feature;
+        this.myPackage = myPackage;
+    }
+    
+
 }
