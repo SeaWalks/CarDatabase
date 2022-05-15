@@ -10,8 +10,8 @@ public class Automobile {
     @Column(name = "automobile_id")
     private int automobileId;
 
-    @Column(unique = true, nullable = false)
-    private int vin;
+    @Column(length = 17, unique = true, nullable = false)
+    private String vin;
 
     //Bidirectional many-to-many between AvailablePackage and Automobiles.
     @ManyToMany
@@ -32,7 +32,7 @@ public class Automobile {
     public Automobile() {
     }
 
-    public Automobile(int vin) {
+    public Automobile(String vin) {
         this.vin = vin;
     }
 
@@ -45,12 +45,20 @@ public class Automobile {
         return automobileId;
     }
 
-    public int getVin() {
+    public String getVin() {
         return vin;
     }
 
-    public void setVin(int vin) {
+    public void setVin(String vin) {
         this.vin = vin;
+    }
+
+    public Set<AvailablePackage> getAvailablePackages() {
+        return availablePackages;
+    }
+
+    public void setAvailablePackages(Set<AvailablePackage> availablePackages) {
+        this.availablePackages = availablePackages;
     }
 
     public Trim getTrim() {
@@ -61,12 +69,5 @@ public class Automobile {
         this.trim = trim;
     }
 
-    public Set<AvailablePackage> getAvailablePackages() {
-        return availablePackages;
-    }
-
-    public void setAvailablePackages(Set<AvailablePackage> availablePackages) {
-        this.availablePackages = availablePackages;
-    }
 
 }

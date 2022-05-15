@@ -10,7 +10,7 @@ public class Package {
     @Column(name = "package_id", nullable = false)
     private int packageId;
 
-    @Column(length = 20)
+    @Column(length = 30)
     private String packageName;
 
     //Unidirectional Many-To-Many from Package->Feature w/ PackageFeature as a junction; 

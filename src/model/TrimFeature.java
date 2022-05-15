@@ -15,5 +15,29 @@ public class TrimFeature {
     @JoinColumn(name="trim_id")
     @ManyToOne
     private Trim trim;
+    public TrimFeature(){
 
+    }
+
+    public TrimFeature(Trim trim, Feature feature) {
+        this.feature = feature;
+        this.trim = trim;
+    }
+
+    public Feature getFeature() {
+        return feature;
+    }
+
+    public void setFeature(Feature feature) {
+        this.feature = feature;
+    }
+
+    public Trim getTrim() {
+        return trim;
+    }
+
+    public void setTrim(Trim trim) {
+        this.trim = trim;
+    }
+    
 }
