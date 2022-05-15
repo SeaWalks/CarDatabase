@@ -13,13 +13,6 @@ public class AvailablePackage {
     @Column(nullable = false)
     private int cost;
 
-    //Unidirectional Many-To-One from AvailablePackages->Trim
-    //Trim has many AvailablePackages; Parent knows children, children dont know parent.
-    @ManyToOne
-    @JoinColumn(name = "trim_id")
-    private Trim trim;
-
-
     //Unidirectional One-To-Many from AvailablePackages->Packages
     //AvailablePackage has many packages; Parent knows children, children don't know parent.
     @OneToMany
@@ -31,9 +24,8 @@ public class AvailablePackage {
     }
     
     //I think these constructors make sense; to have available packages, you ened to know the trim you're talking about and the possible packages maybe?
-    public AvailablePackage(int cost, Trim trim) {
+    public AvailablePackage(int cost) {
         this.cost = cost;
-        this.trim = trim;
     }
 
 
@@ -52,14 +44,6 @@ public class AvailablePackage {
 
     public void setCost(int cost) {
         this.cost = cost;
-    }
-
-    public Trim getTrim() {
-        return trim;
-    }
-
-    public void setTrim(Trim trim) {
-        this.trim = trim;
     }
 
     public List<Package> getPackages() {

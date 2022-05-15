@@ -20,7 +20,7 @@ public class Trim {
     private int cost;
 
     //Unidirectional Many-To-Many from Trim->Feature w/ TrimFeature as a junction; 
-    //One Trim has many Features; Parent knows child, child doesn't know parents.
+    //One Trim has many Features; Parent knows Children, Children doesn't know parent.
     @OneToMany(mappedBy = "trim")
     private Set<TrimFeature> trimFeatures;
 
@@ -29,6 +29,12 @@ public class Trim {
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
+
+    //Unidirectional One-To-Many from trims->AvailablePackages
+    //One Trim has many AvailablePackages; Parent knows children, children don't know parents.
+    @OneToMany
+    @JoinColumn(name = "trim_id")
+    private List<AvailablePackage> availablePackages;
 
     public Trim() {
     }
@@ -79,4 +85,13 @@ public class Trim {
     public void setModel(Model model) {
         this.model = model;
     }
+
+    public List<AvailablePackage> getAvailablePackages() {
+        return availablePackages;
+    }
+
+    public void setAvailablePackages(List<AvailablePackage> availablePackages) {
+        this.availablePackages = availablePackages;
+    }
+    
 }
