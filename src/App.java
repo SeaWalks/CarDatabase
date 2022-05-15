@@ -13,19 +13,39 @@ public class App {
     public static void main(String[] args) throws Exception {
         App run = new App();
         Scanner input = new Scanner(System.in);
-        System.out.println("Please choosen an option: \n"+
-            "1) Instantiate model\n"+
-            "2) Automobile lookup\n"+
-            "3) Feature Search\n");
-        switch(input.nextInt()){
+        System.out.println("Please choosen an option: \n" +
+                "1) Instantiate model\n" +
+                "2) Automobile lookup\n" +
+                "3) Feature Search\n");
+        switch (input.nextInt()) {
             case 1:
                 run.instantiateData();
                 System.out.println("Data instantiated.");
                 break;
-
+            case 2:
+                run.automobileLookup();
+                break;
             default:
-            System.out.println("Invalid choice.");
-            break;
+                System.out.println("Invalid choice.");
+                break;
+        }
+    }
+
+    public void automobileLookup() {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
+        EntityManager em = factory.createEntityManager();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter the VIN to lookup: ");
+        String vinInput = input.nextLine();
+        var vinLookup = em.createQuery("SELECT a FROM automobiles a WHERE a.vin = ?1", Automobile.class);
+        vinLookup.setParameter(1, vinInput);
+        try {
+            Automobile selected = vinLookup.getSingleResult();
+            System.out.println(
+                    selected.getTrim().getModel().getYear() + " " + selected.getTrim().getModel().getModelName() + " "
+                            + selected.getTrim().getTrimName() + "\n" + selected.stickerPrice());
+        } catch (NoResultException ex) {
+            System.out.println("VIN " + vinInput + " not found.");
         }
     }
 
@@ -180,6 +200,7 @@ public class App {
         em.persist(tf17);
         em.persist(tf18);
         em.persist(tf19);
+        // Persist Automobiles
         em.persist(a1);
         em.persist(a2);
         em.persist(a3);
@@ -192,26 +213,18 @@ public class App {
         em.persist(ap4);
         em.persist(ap5);
         em.persist(ap6);
+        // Persist ChosenPackages
+        Set packageSet = new HashSet<AvailablePackage>();
+        packageSet.add(ap2);
+        a1.setAvailablePackages(packageSet);
+        packageSet.remove(ap2);
+        packageSet.add(ap4);
+        a4.setAvailablePackages(packageSet);
+        packageSet.remove(ap4);
+        packageSet.add(ap5);
+        packageSet.add(ap6);
+        a5.setAvailablePackages(packageSet);
         em.getTransaction().commit();
-    }
-    /*
-     * public double stickerPrice(){
-     * Returns a Set of all Feature objects that this Automobile has
-     * because of its Model, Trim, or chosen Packages. The HashSet class
-     * and its addAll method will be helpful here.
-     * return 0;
-     * }
-     * public Set<Feature> getFeatures(){
-     * Returns the "sticker price" of the automobile: the sum of the Trim
-     * cost, plus the costs of all packages added to the automobile. Do not
-     * try to write a JPQL query to do this; you have all the data you need
-     * among the fields of the Automobile object and the methods of its related
-     * classes.
-     * }
-     */
-
-    public void automobileLookup() {
-        // DONT FORGET TO SANITIZE INPUTS!
     }
 
     public void featureSearch() {

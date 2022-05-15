@@ -5,3 +5,10 @@ Before running the code, you must open the file src/META-INF/persistence.xml. Fi
 Next, create a new Schema in Datagrip called "museums2". Run the "MUSEUMS 2 CREATION SCRIPT" that you find on BeachBoard under Module 4 in a query window on that schema. 
 
 You should now be able to run this application.
+
+To do: 
+Feature Search
+Automobile Lookup
+Class automobile: public Set<Feature> getFeatures()
+Class Automobile: public double stickerPrice()
+"Any collection that is not mandatory should be initialized as empty in the constructor; not left to be null."
