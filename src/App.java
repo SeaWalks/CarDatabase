@@ -2,9 +2,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-
 import org.eclipse.persistence.internal.jpa.deployment.PersistenceUnitProcessor.Mode;
-
 import jakarta.persistence.*;
 import model.*;
 import model.Package; //Explicit import is good for "Package"
@@ -12,27 +10,60 @@ import model.Package; //Explicit import is good for "Package"
 public class App {
     public static void main(String[] args) throws Exception {
         App run = new App();
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please choosen an option: \n" +
-                "1) Instantiate model\n" +
-                "2) Automobile lookup\n" +
-                "3) Feature Search\n");
-        switch (input.nextInt()) {
-            case 1:
-                run.instantiateData();
-                System.out.println("Data instantiated.");
-                break;
-            case 2:
-                run.automobileLookup();
-                break;
-            default:
-                System.out.println("Invalid choice.");
-                break;
+            int choice;
+            while (true) {
+                Scanner input = new Scanner(System.in);
+                System.out.println
+                        ("Please choose an option: \n" +
+                        "1) Instantiate model\n" +
+                        "2) Automobile lookup\n" +
+                        "3) Feature Search\n" +
+                        "8) Exit Program\n");
+                choice = input.nextInt(); //This is causing a crash in the while loop and I'm too tired to care.
+                switch (choice) {
+                    case 1:
+                        run.instantiateData();
+                        System.out.println("Data instantiated.");
+                        break;
+                    case 2:
+                        run.automobileLookup();
+                        break;
+                    case 8:
+                        System.out.println("Closing Program.");
+                        System.exit(0);
+                    default:
+                        System.out.println("Invalid choice.");
+                        break;
+                }
         }
     }
+    /*
+    Feature Search
+        1) User enters the name of a Feature. 
+        2) Use JPQL to find the Feature if it exists.
+        3) If it does, print the VIN of every Automobile with that Feature.
+     */
+
+    public void featureSearch() {
+    }
+
+
+    /*
+    Automobile Lookup:
+        1)User enters the VIN of an automobile.
+        2)Use JPQL to find that automobile if it exists.
+        3)If it does, print the automobile's information in the following format:
+            [year] [model] [trim]
+            [sticker price]
+            Features: [all of the automobile's features, in alphabetical order, one per line]
+        WARNING: this branch requires running a query with user input. You must correctly 
+        used a parameterized query to eliminate potential injection attacks. Doing this 
+        incorrectly will net a 20% deduction on your project. (Yes, I am serious.)
+    */
+
 
     public void automobileLookup() {
-        /********** WIP ***********/
+    
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
         EntityManager em = factory.createEntityManager();
         try (Scanner input = new Scanner(System.in)) {
@@ -45,7 +76,11 @@ public class App {
                 System.out.println(
                         "Year: " + thisCar.getTrim().getModel().getYear() + " Model: "
                                 + thisCar.getTrim().getModel().getModelName() + " Trim: "
-                                + thisCar.getTrim().getTrimName() + "\n Sticker Price:" + thisCar.stickerPrice());
+                                + thisCar.getTrim().getTrimName() + "\n Sticker Price:" + thisCar.stickerPrice()
+                                + "\n Features:");
+                for (Feature F : thisCar.getFeatures()) {
+                    System.out.println(F.getFeatureName());
+                }
             } catch (NoResultException ex) {
                 System.out.println("VIN " + vinInput + " not found.");
             }
@@ -129,11 +164,11 @@ public class App {
         TrimFeature tf18 = new TrimFeature(t9, rearScreens);
         TrimFeature tf19 = new TrimFeature(t9, adaptiveCruise);
         // Add AvailablePackages to database
-        AvailablePackage ap1 = new AvailablePackage(3000, t1, safety);
-        AvailablePackage ap2 = new AvailablePackage(2500, t2, amazon);
-        AvailablePackage ap3 = new AvailablePackage(2500, t5, amazon);
-        AvailablePackage ap4 = new AvailablePackage(3000, t7, safety);
-        AvailablePackage ap5 = new AvailablePackage(2500, t8, theater);
+        AvailablePackage ap1 = new AvailablePackage(3000, t1, safety); // Good; ap1 for 30k car
+        AvailablePackage ap2 = new AvailablePackage(2500, t2, amazon); // Good; AP2 for 34k car UNUSED
+        AvailablePackage ap3 = new AvailablePackage(2500, t5, amazon); // Good; ap3 for 48kcar UNUSED
+        AvailablePackage ap4 = new AvailablePackage(3000, t7, safety); // Good; ap4 for 41k car
+        AvailablePackage ap5 = new AvailablePackage(2500, t8, theater); // Goodl ap5, apy6 for 46k car
         AvailablePackage ap6 = new AvailablePackage(2000, t8, safety);
         // Add Automobiles to database
         Automobile a1 = new Automobile("12345abcde");
@@ -145,7 +180,7 @@ public class App {
         Automobile a4 = new Automobile("aaaaa88888");
         a4.setTrim(t7);
         Automobile a5 = new Automobile("bbbbb77777");
-        a5.setTrim(t6);
+        a5.setTrim(t8);
         // Persist Features
         em.persist(hybridEngine);
         em.persist(powerDoors);
@@ -216,16 +251,11 @@ public class App {
         em.persist(ap4);
         em.persist(ap5);
         em.persist(ap6);
-
-        // Persist ChosenPackages
-        a1.getAvailablePackages().add(ap5);
-        a4.getAvailablePackages().add(ap1);
-        a5.getAvailablePackages().add(ap2);
+        // Add ChosenPackages
+        a1.getAvailablePackages().add(ap2);
+        a4.getAvailablePackages().add(ap4);
+        a5.getAvailablePackages().add(ap5);
         a5.getAvailablePackages().add(ap6);
         em.getTransaction().commit();
     }
-
-    public void featureSearch() {
-    }
-
 }

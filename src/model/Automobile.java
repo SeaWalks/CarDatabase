@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 import jakarta.persistence.*;
 
@@ -37,29 +38,40 @@ public class Automobile {
         this.vin = vin;
         this.availablePackages = new HashSet<AvailablePackage>();
     }
-
+    
+    
+    /****************************/
     // "Adding Application Logic"
+    /****************************/
 
+
+    // public Set<Feature> getFeatures() {
     public Set<Feature> getFeatures() {
-        //Does not work as intended.
-        Set<Feature> featureSet = new Set();
-        // Get features from trim
-        featureSet.addAll(this.getTrim().getTrimFeatures());
-        // Get features from model
-        featureSet.addAll(this.getTrim().getModel().getModelFeatures());
-        // Get features from all installed packages
-        for (AvailablePackage P : this.getAvailablePackages()) {
-            featureSet.addAll(P.getPackage().getPackageFeatures());
+        //works BUT IS NOT ALPHABETIZED!!!!
+        HashSet<Feature> s = new HashSet<Feature>();
+
+        for (TrimFeature F : this.getTrim().getTrimFeatures()) {
+            //System.out.println("Features from trims:");
+            s.add(F.getFeature());
         }
+        for (ModelFeature F : this.getTrim().getModel().getModelFeatures()) {
+            //System.out.println("Features from Model:");
+            s.add(F.getFeature());
+        }
+        for (AvailablePackage F : this.getAvailablePackages()) { //Look at every package
+            //System.out.println("Package detected:" + F.getPackage().getPackageName());
+            for (PackageFeature P : F.getPackage().getPackageFeatures()){ //Look at every package feature
+                s.add(P.getFeature());
+            };
+        }
+        return s;
     }
 
     public double stickerPrice() {
-        // Works as intended.
+        // Works as intended; verified by hand.
         double total = 0;
         total += this.getTrim().getCost();
-        System.out.println("TRIMID: " + this.getTrim().getTrimId());
         for (AvailablePackage P : this.getAvailablePackages()) {
-            System.out.println("AP ID: " + P.getAvailableId() + P.getPackage().getPackageName());
             total += P.getCost();
         }
         return total;
