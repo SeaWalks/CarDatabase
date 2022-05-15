@@ -29,20 +29,44 @@ public class App {
         Package amazon = new Package("Amazon Theater Package");
         Package safety = new Package ("Safety Package");
         //Add PackageFeatures to database
-        PackageFeature a1 = new PackageFeature(theater, rearScreens);
-        PackageFeature a2 = new PackageFeature(amazon, rearScreens);
-        PackageFeature a3 = new PackageFeature(amazon, fireTV);
-        PackageFeature a4 = new PackageFeature(safety, adaptiveCruise);
+        PackageFeature pf1 = new PackageFeature(theater, rearScreens);
+        PackageFeature pf2 = new PackageFeature(amazon, rearScreens);
+        PackageFeature pf3 = new PackageFeature(amazon, fireTV);
+        PackageFeature pf4 = new PackageFeature(safety, adaptiveCruise);
         //Add Models to database
         Model pacifica = new Model("Pacifica", 2022);
         Model pacificaHybrid21 = new Model("Pacifica Hybrid", 2022);
         Model pacificaHybrid22 = new Model("Pacifica Hybrid", 2021);
         //Add Trims to database
+        Trim t1 = new Trim("Touring", 30000, pacifica);
+        Trim t2 = new Trim("Limited", 34000, pacifica);
+        Trim t3 = new Trim("Pinnacle", 42000, pacifica);
+        Trim t4 = new Trim("Touring", 43000, pacificaHybrid22);
+        Trim t5 = new Trim("Limited", 48000, pacificaHybrid22);
+        Trim t6 = new Trim("Pinnacle", 54000, pacificaHybrid22);
+        Trim t7 = new Trim("Touring", 41000, pacificaHybrid21);
+        Trim t8 = new Trim("Limited", 46000, pacificaHybrid21);
+        Trim t9 = new Trim("Pinnacle", 52000, pacificaHybrid21);
+        //Add TrimFeatures to database
+        TrimFeature tf1 = new TrimFeature(t2, leatherSeats);
+        TrimFeature tf2 = new TrimFeature(t2, handsFreeDoors);
+        TrimFeature tf3 = new TrimFeature(t3, leatherSeats);
+        TrimFeature tf4 = new TrimFeature(t3, handsFreeDoors);
+        TrimFeature tf5 = new TrimFeature(t3, rearScreens);
+        TrimFeature tf6 = new TrimFeature(t3, fireTV);
+        TrimFeature tf7 = new TrimFeature(t3, awd);
+        TrimFeature tf8 = new TrimFeature(t3, powerDoors);
+        TrimFeature tf9 = new TrimFeature(t3, powerDoors);
+        TrimFeature tf10 = new TrimFeature(t3, powerDoors);
 
+        //Add Automobiles to database
 
+        Automobile a1 = new Automobile("12345abcde");
+        Automobile a2 = new Automobile("67890abcde");
+        Automobile a3 = new Automobile("99999aaaaa");
+        Automobile a4 = new Automobile("aaaaa88888");
+        Automobile a5 = new Automobile("bbbbb77777");
 
-
-        
         em.persist(hybridEngine);
         em.persist(powerDoors);
         em.persist(handsFreeDoors);
@@ -51,12 +75,18 @@ public class App {
         em.persist(awd);
         em.persist(adaptiveCruise);
         em.persist(theater);
-        em.persist(amazon);
+       // em.persist(pf1);
+        //em.persist(pf2);
+        em.persist(pf3);
+       // em.persist(pf4);
 
-        em.persist(safety);
-        em.persist(asdf);
 
-    
+
+
+
+
+
+
         em.getTransaction().commit();
         //Finish adding features to database
     }   
