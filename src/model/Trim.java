@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +44,8 @@ public class Trim {
         this.trimName = trimName;
         this.cost = cost;
         this.model = model;
+        this.availablePackages = new HashSet<AvailablePackage>();
+        this.trimFeatures = new HashSet<TrimFeature>();
     }
 
     @Override

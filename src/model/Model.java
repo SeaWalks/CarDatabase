@@ -1,4 +1,5 @@
 package model;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ public class Model {
     public Model(String modelName, int year) {
         this.modelName = modelName;
         this.year = year;
+        this.modelFeatures = new HashSet<ModelFeature>();
     }
 
     @Override

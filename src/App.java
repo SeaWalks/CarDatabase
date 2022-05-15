@@ -37,35 +37,37 @@ public class App {
                         System.out.println("Invalid choice.");
                         break;
                 }
-        }
+            }
+        
     }
     /*
-    Feature Search
-        1) User enters the name of a Feature. 
-        2) Use JPQL to find the Feature if it exists.
-        3) If it does, print the VIN of every Automobile with that Feature.
+     * Feature Search
+     * 1) User enters the name of a Feature.
+     * 2) Use JPQL to find the Feature if it exists.
+     * 3) If it does, print the VIN of every Automobile with that Feature.
      */
 
     public void featureSearch() {
     }
 
-
     /*
-    Automobile Lookup:
-        1)User enters the VIN of an automobile.
-        2)Use JPQL to find that automobile if it exists.
-        3)If it does, print the automobile's information in the following format:
-            [year] [model] [trim]
-            [sticker price]
-            Features: [all of the automobile's features, in alphabetical order, one per line]
-        WARNING: this branch requires running a query with user input. You must correctly 
-        used a parameterized query to eliminate potential injection attacks. Doing this 
-        incorrectly will net a 20% deduction on your project. (Yes, I am serious.)
-    */
+     * Automobile Lookup:
+     * 1)User enters the VIN of an automobile.
+     * 2)Use JPQL to find that automobile if it exists.
+     * 3)If it does, print the automobile's information in the following format:
+     * [year] [model] [trim]
+     * [sticker price]
+     * Features: [all of the automobile's features, in alphabetical order, one per
+     * line]
+     * WARNING: this branch requires running a query with user input. You must
+     * correctly
+     * used a parameterized query to eliminate potential injection attacks. Doing
+     * this
+     * incorrectly will net a 20% deduction on your project. (Yes, I am serious.)
+     */
 
+    public void automobileLookup() {
 
-    public void automobileLookup() { 
-    
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
         EntityManager em = factory.createEntityManager();
         try (Scanner input = new Scanner(System.in)) {
@@ -78,13 +80,14 @@ public class App {
                 System.out.println(
                         "Year: " + thisCar.getTrim().getModel().getYear() + " Model: "
                                 + thisCar.getTrim().getModel().getModelName() + " Trim: "
-                                + thisCar.getTrim().getTrimName() + "\nSticker Price:" + String.format("%.2f", thisCar.stickerPrice())
+                                + thisCar.getTrim().getTrimName() + "\nSticker Price:"
+                                + String.format("%.2f", thisCar.stickerPrice())
                                 + "\nFeatures:");
                 Set<String> sortedFeatures = new TreeSet<String>();
                 for (Feature F : thisCar.getFeatures()) {
                     sortedFeatures.add(F.getFeatureName());
                 }
-                for (String s : sortedFeatures){
+                for (String s : sortedFeatures) {
                     System.out.println(s);
                 }
             } catch (NoResultException ex) {
@@ -262,6 +265,7 @@ public class App {
         a4.getAvailablePackages().add(ap4);
         a5.getAvailablePackages().add(ap5);
         a5.getAvailablePackages().add(ap6);
+        //Commit changes to database
         em.getTransaction().commit();
     }
 }

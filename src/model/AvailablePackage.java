@@ -1,4 +1,5 @@
 package model;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -37,6 +38,7 @@ public class AvailablePackage {
         this.cost = cost;
         this.trim = trim;
         this.myPackage = myPackage;
+        this.automobiles = new HashSet<Automobile>();
     }
 
 

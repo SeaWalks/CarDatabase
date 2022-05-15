@@ -47,9 +47,10 @@ public class Automobile {
 
     // public Set<Feature> getFeatures() {
     public Set<Feature> getFeatures() {
-        //works BUT IS NOT ALPHABETIZED!!!!
+        //Works; verified by hand.
         HashSet<Feature> s = new HashSet<Feature>();
 
+        //Probably a cleaner way to do this but SHE GETS THE JOB DONE.
         for (TrimFeature F : this.getTrim().getTrimFeatures()) {
             //System.out.println("Features from trims:");
             s.add(F.getFeature());
