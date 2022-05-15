@@ -33,10 +33,36 @@ public class AvailablePackage {
     }
     
     //I think these constructors make sense; to have available packages, you ened to know the trim you're talking about and the possible packages maybe?
-    public AvailablePackage(int cost) {
+    public AvailablePackage(int cost, Trim trim, Package myPackage) {
         this.cost = cost;
+        this.trim = trim;
+        this.myPackage = myPackage;
     }
 
+
+    public Set<Automobile> getAutomobiles() {
+        return automobiles;
+    }
+
+    public void setAutomobiles(Set<Automobile> automobiles) {
+        this.automobiles = automobiles;
+    }
+
+    public Trim getTrim() {
+        return trim;
+    }
+
+    public void setTrim(Trim trim) {
+        this.trim = trim;
+    }
+
+    public Package getPackage() {
+        return myPackage;
+    }
+
+    public void setPackage(Package myPackage) {
+        this.myPackage = myPackage;
+    }
 
     @Override
     public String toString() {
