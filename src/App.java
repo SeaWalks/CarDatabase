@@ -32,20 +32,23 @@ public class App {
     }
 
     public void automobileLookup() {
+        /********** WIP ***********/
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
         EntityManager em = factory.createEntityManager();
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please enter the VIN to lookup: ");
-        String vinInput = input.nextLine();
-        var vinLookup = em.createQuery("SELECT a FROM automobiles a WHERE a.vin = ?1", Automobile.class);
-        vinLookup.setParameter(1, vinInput);
-        try {
-            Automobile selected = vinLookup.getSingleResult();
-            System.out.println(
-                    selected.getTrim().getModel().getYear() + " " + selected.getTrim().getModel().getModelName() + " "
-                            + selected.getTrim().getTrimName() + "\n" + selected.stickerPrice());
-        } catch (NoResultException ex) {
-            System.out.println("VIN " + vinInput + " not found.");
+        try (Scanner input = new Scanner(System.in)) {
+            System.out.println("Please enter the VIN to lookup: ");
+            String vinInput = input.nextLine();
+            TypedQuery<Automobile> query = em.createQuery(
+                    "SELECT a FROM automobiles a WHERE a.vin = ?1", Automobile.class);
+            try {
+                Automobile thisCar = query.setParameter(1, vinInput).getSingleResult();
+                System.out.println(
+                        "Year: " + thisCar.getTrim().getModel().getYear() + " Model: "
+                                + thisCar.getTrim().getModel().getModelName() + " Trim: "
+                                + thisCar.getTrim().getTrimName() + "\n Sticker Price:" + thisCar.stickerPrice());
+            } catch (NoResultException ex) {
+                System.out.println("VIN " + vinInput + " not found.");
+            }
         }
     }
 
@@ -213,17 +216,12 @@ public class App {
         em.persist(ap4);
         em.persist(ap5);
         em.persist(ap6);
+
         // Persist ChosenPackages
-        Set packageSet = new HashSet<AvailablePackage>();
-        packageSet.add(ap2);
-        a1.setAvailablePackages(packageSet);
-        packageSet.remove(ap2);
-        packageSet.add(ap4);
-        a4.setAvailablePackages(packageSet);
-        packageSet.remove(ap4);
-        packageSet.add(ap5);
-        packageSet.add(ap6);
-        a5.setAvailablePackages(packageSet);
+        a1.getAvailablePackages().add(ap5);
+        a4.getAvailablePackages().add(ap1);
+        a5.getAvailablePackages().add(ap2);
+        a5.getAvailablePackages().add(ap6);
         em.getTransaction().commit();
     }
 
