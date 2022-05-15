@@ -1,4 +1,5 @@
 package model;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -27,6 +28,7 @@ public class Package {
     //I think this is correct; doesnt make a ton of sense to have feature and trim lists included?
     public Package(String packageName) {
         this.packageName = packageName;
+        this.packageFeatures = new HashSet<PackageFeature>();
     }
 
     @Override
