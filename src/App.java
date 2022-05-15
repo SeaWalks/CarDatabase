@@ -2,6 +2,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
+
 import org.eclipse.persistence.internal.jpa.deployment.PersistenceUnitProcessor.Mode;
 import jakarta.persistence.*;
 import model.*;
@@ -62,7 +64,7 @@ public class App {
     */
 
 
-    public void automobileLookup() {
+    public void automobileLookup() { 
     
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
         EntityManager em = factory.createEntityManager();
@@ -76,10 +78,14 @@ public class App {
                 System.out.println(
                         "Year: " + thisCar.getTrim().getModel().getYear() + " Model: "
                                 + thisCar.getTrim().getModel().getModelName() + " Trim: "
-                                + thisCar.getTrim().getTrimName() + "\n Sticker Price:" + thisCar.stickerPrice()
-                                + "\n Features:");
+                                + thisCar.getTrim().getTrimName() + "\nSticker Price:" + String.format("%.2f", thisCar.stickerPrice())
+                                + "\nFeatures:");
+                Set<String> sortedFeatures = new TreeSet<String>();
                 for (Feature F : thisCar.getFeatures()) {
-                    System.out.println(F.getFeatureName());
+                    sortedFeatures.add(F.getFeatureName());
+                }
+                for (String s : sortedFeatures){
+                    System.out.println(s);
                 }
             } catch (NoResultException ex) {
                 System.out.println("VIN " + vinInput + " not found.");
