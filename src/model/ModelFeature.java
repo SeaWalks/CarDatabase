@@ -17,4 +17,29 @@ public class ModelFeature {
     @JoinColumn(name = "model_id")
     @ManyToOne
     private Model model;
+    public ModelFeature(){
+
+    }
+
+    public ModelFeature(Model model, Feature feature) {
+        this.feature = feature;
+        this.model = model;
+    }
+
+    public Feature getFeature() {
+        return feature;
+    }
+
+    public void setFeature(Feature feature) {
+        this.feature = feature;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
 }

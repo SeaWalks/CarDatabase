@@ -13,8 +13,11 @@ public class App {
     public static void main(String[] args) throws Exception {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
         EntityManager em = factory.createEntityManager();
+
+        /************Instantiating Data***********/
         //Add Features to database
         em.getTransaction().begin();
+        //Add Features to database
         Feature leatherSeats = new Feature("Leather Seats");
         Feature hybridEngine = new Feature("Plug-in hybrid engine");
         Feature powerDoors = new Feature("Power sliding doors");
@@ -37,6 +40,15 @@ public class App {
         Model pacifica = new Model("Pacifica", 2022);
         Model pacificaHybrid21 = new Model("Pacifica Hybrid", 2022);
         Model pacificaHybrid22 = new Model("Pacifica Hybrid", 2021);
+        //Add ModelFeatures to database
+            //22Pacifica
+            ModelFeature mf1 = new ModelFeature(pacifica, powerDoors);
+            ModelFeature mf2 = new ModelFeature(pacificaHybrid21, hybridEngine);
+            //21Hybrid
+            ModelFeature mf3 = new ModelFeature(pacificaHybrid21, powerDoors);
+            ModelFeature mf4 = new ModelFeature(pacificaHybrid22, hybridEngine);
+            //22Hybrid
+            ModelFeature mf5 = new ModelFeature(pacificaHybrid22, powerDoors);
         //Add Trims to database
         Trim t1 = new Trim("Touring", 30000, pacifica);
         Trim t2 = new Trim("Limited", 34000, pacifica);
@@ -48,19 +60,34 @@ public class App {
         Trim t8 = new Trim("Limited", 46000, pacificaHybrid21);
         Trim t9 = new Trim("Pinnacle", 52000, pacificaHybrid21);
         //Add TrimFeatures to database
-        TrimFeature tf1 = new TrimFeature(t2, leatherSeats);
-        TrimFeature tf2 = new TrimFeature(t2, handsFreeDoors);
-        TrimFeature tf3 = new TrimFeature(t3, leatherSeats);
-        TrimFeature tf4 = new TrimFeature(t3, handsFreeDoors);
-        TrimFeature tf5 = new TrimFeature(t3, rearScreens);
-        TrimFeature tf6 = new TrimFeature(t3, fireTV);
-        TrimFeature tf7 = new TrimFeature(t3, awd);
-        TrimFeature tf8 = new TrimFeature(t3, powerDoors);
-        TrimFeature tf9 = new TrimFeature(t3, powerDoors);
-        TrimFeature tf10 = new TrimFeature(t3, powerDoors);
+        //22 Limited
+            TrimFeature tf1 = new TrimFeature(t2, leatherSeats);
+            TrimFeature tf2 = new TrimFeature(t2, handsFreeDoors);
+        //22 Pinnacle
+            TrimFeature tf3 = new TrimFeature(t3, leatherSeats);
+            TrimFeature tf4 = new TrimFeature(t3, handsFreeDoors);
+            TrimFeature tf5 = new TrimFeature(t3, rearScreens);
+            TrimFeature tf6 = new TrimFeature(t3, fireTV);
+            TrimFeature tf7 = new TrimFeature(t3, awd);
+        //Hybrid22 Limited
+            TrimFeature tf8 = new TrimFeature(t5, leatherSeats);
+            TrimFeature tf9 = new TrimFeature(t5, handsFreeDoors);
+        //Hybrid22 Pinnacle
+            TrimFeature tf10 = new TrimFeature(t6, leatherSeats);
+            TrimFeature tf11 = new TrimFeature(t6, handsFreeDoors);
+            TrimFeature tf12 = new TrimFeature(t6, rearScreens);
+            TrimFeature tf13 = new TrimFeature(t6, fireTV);
+        //Hybrid21 Limited
+            TrimFeature tf14 = new TrimFeature(t8, leatherSeats);
+            TrimFeature tf15 = new TrimFeature(t8, handsFreeDoors);
+        //Hybrid21 Pinnacle
+            TrimFeature tf16 = new TrimFeature(t9, leatherSeats);
+            TrimFeature tf17 = new TrimFeature(t9, handsFreeDoors);
+            TrimFeature tf18 = new TrimFeature(t9, rearScreens);
+            TrimFeature tf19 = new TrimFeature(t9, adaptiveCruise);
+
 
         //Add Automobiles to database
-
         Automobile a1 = new Automobile("12345abcde");
         Automobile a2 = new Automobile("67890abcde");
         Automobile a3 = new Automobile("99999aaaaa");
