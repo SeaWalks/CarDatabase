@@ -12,6 +12,7 @@ public class Automobile {
     private int vin;
 
     // Unidirectional Many-To-One from Automobile->Trim
+    // Automobile has many trims; parent knows children, children doesn't know parent.
     @ManyToOne
     @JoinColumn(name = "trim_id")
     private Trim trim;
@@ -21,8 +22,7 @@ public class Automobile {
 
     public Automobile(int vin) {
         // No constructor for auto_id because it is auto-generated
-        // No constructor for the set Available packages b.c we dont need it to have an
-        // automobile i think?
+        // No constructor trim b/c we don't need it i think
         this.vin = vin;
     }
 

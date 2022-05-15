@@ -1,6 +1,8 @@
 package model;
 
 import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity(name = "trims")
@@ -17,12 +19,13 @@ public class Trim {
     @Column(nullable = false)
     private int cost;
 
-    // Unidirectional One-To-Many from Trim->Feature
-    @OneToMany
-    @JoinColumn(name = "feature_id")
-    private List<Feature> features;
+    //Unidirectional Many-To-Many from Trim->Feature w/ TrimFeature as a junction; 
+    //One Trim has many Features; Parent knows child, child doesn't know parents.
+    @OneToMany(mappedBy = "trim")
+    private Set<TrimFeature> trimFeatures;
 
-    // Bidirectional Many-To-One between Trim & Model; Model = parent, trim = child
+    ///Bi-directional One-to-Many between Trim->Model
+    //One Model has many Trims; parent and children know each other.
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
@@ -61,12 +64,12 @@ public class Trim {
         this.cost = cost;
     }
 
-    public List<Feature> getFeatures() {
-        return features;
+    public Set<TrimFeature> getTrimFeatures() {
+        return trimFeatures;
     }
 
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
+    public void setTrimFeatures(Set<TrimFeature> trimFeatures) {
+        this.trimFeatures = trimFeatures;
     }
 
     public Model getModel() {

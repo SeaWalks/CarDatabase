@@ -1,5 +1,7 @@
 package model;
 import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity(name = "models")
@@ -16,20 +18,20 @@ public class Model {
     @Column(nullable = false)
     private int year;
 
-    // Unidirectional One-To-Many from Model->Feature
-    @OneToMany
-    @JoinColumn(name = "feature_id")
-    private List<Feature> features;
+     //Unidirectional Many-To-Many from Model->Feature w/ ModelFeature as a junction; 
+    //One Model has many Features; Parent knows child, child doesn't know parents.
+    @OneToMany(mappedBy = "model")
+    private Set<ModelFeature> modelFeatures;
 
-    //BiDirectional  One-To-Many between Model & Trim
-    //One model has many trims
+
+    //Bi-directional One-To-Many between Model->Trim
+    //One Model has many Trims; parent and children know each other.
     @OneToMany(mappedBy = "model")
     private List<Trim> trims;
 
     public Model() {
     }
 
-    //Not sure if we need to include more stuff in header (feature List and trim List)
     public Model(String modelName, int year) {
         this.modelName = modelName;
         this.year = year;
@@ -60,12 +62,12 @@ public class Model {
         this.year = year;
     }
 
-    public List<Feature> getFeatures() {
-        return features;
+    public Set<ModelFeature> getModelFeatures() {
+        return modelFeatures;
     }
 
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
+    public void setModelFeatures(Set<ModelFeature> modelFeatures) {
+        this.modelFeatures = modelFeatures;
     }
 
     public List<Trim> getTrims() {

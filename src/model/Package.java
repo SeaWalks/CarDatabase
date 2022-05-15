@@ -1,8 +1,8 @@
 package model;
-import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
-//Should be done, I think. 
 @Entity(name = "packages")
 public class Package {
     @Id
@@ -13,10 +13,10 @@ public class Package {
     @Column(length = 20)
     private String packageName;
 
-    // Unidirectional One-to-Many from Package->Feature
-    @OneToMany
-    @JoinColumn(name = "package_id")
-    private List<Feature> features;
+    //Unidirectional Many-To-Many from Package->Feature w/ PackageFeature as a junction; 
+    //One Package has many Features; Parent knows child, child doesn't know parents.
+    @OneToMany(mappedBy = "myPackage")
+    private Set<PackageFeature> packageFeatures;
 
     public Package() {
     }
@@ -44,12 +44,14 @@ public class Package {
         this.packageName = packageName;
     }
 
-    public List<Feature> getFeatures() {
-        return features;
+
+    public Set<PackageFeature> getPackageFeatures() {
+        return packageFeatures;
     }
 
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
+
+    public void setPackageFeatures(Set<PackageFeature> packageFeatures) {
+        this.packageFeatures = packageFeatures;
     }
 
 }

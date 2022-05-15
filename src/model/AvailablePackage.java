@@ -1,5 +1,6 @@
 package model;
-import java.util.Set;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity(name = "availablePackages")
@@ -12,25 +13,27 @@ public class AvailablePackage {
     @Column(nullable = false)
     private int cost;
 
-    @JoinColumn(name = "trim_id")
+    //Unidirectional Many-To-One from AvailablePackages->Trim
+    //Trim has many AvailablePackages; Parent knows children, children dont know parent.
     @ManyToOne
+    @JoinColumn(name = "trim_id")
     private Trim trim;
 
 
-    //Many-To-One between AvailablePackages->Package
+    //Unidirectional One-To-Many from AvailablePackages->Packages
+    //AvailablePackage has many packages; Parent knows children, children don't know parent.
+    @OneToMany
     @JoinColumn(name = "package_id")
-    @ManyToOne
-    private Package myBigPackage; //package is a reserved word for java?
+    private List<Package> packages; //package is a reserved word for java?
 
 
     public AvailablePackage() {
     }
     
     //I think these constructors make sense; to have available packages, you ened to know the trim you're talking about and the possible packages maybe?
-    public AvailablePackage(int cost, Trim trim, Package myBigPackage) {
+    public AvailablePackage(int cost, Trim trim) {
         this.cost = cost;
         this.trim = trim;
-        this.myBigPackage = myBigPackage;
     }
 
 
@@ -59,12 +62,13 @@ public class AvailablePackage {
         this.trim = trim;
     }
 
-    public Package getPackage() {
-        return myBigPackage;
+    public List<Package> getPackages() {
+        return packages;
     }
 
-    public void setPackage(Package myBigPackage) {
-        this.myBigPackage = myBigPackage;
+    public void setPackages(List<Package> packages) {
+        this.packages = packages;
     }
 
+   
 }
