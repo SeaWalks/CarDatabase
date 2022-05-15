@@ -5,8 +5,8 @@
 
 1. Feature Search
     - Supposedly the mega raid boss.
-2. ~~"Any collection that is not mandatory should be initialized as empty in the constructor; not left to be null."
-   - Go through constructors and make sure this is true.~~
+2. ~~"Any collection that is not mandatory should be initialized as empty in the constructor; not left to be null."~~
+   - ~~Go through constructors and make sure this is true.~~
 3. Put fix crash when looping menu
 
 ## Dont Forget:
