@@ -18,7 +18,7 @@ public class Model {
     @Column(nullable = false)
     private int year;
 
-     //Unidirectional Many-To-Many from Model->Feature w/ ModelFeature as a junction; 
+    //Unidirectional Many-To-Many from Model->Feature w/ ModelFeature as a junction; 
     //One Model has many Features; Parent knows child, child doesn't know parents.
     @OneToMany(mappedBy = "model")
     private Set<ModelFeature> modelFeatures;

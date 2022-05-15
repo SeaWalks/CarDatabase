@@ -18,6 +18,8 @@ public class Package {
     @OneToMany(mappedBy = "myPackage")
     private Set<PackageFeature> packageFeatures;
 
+    //No link back to availablePackages to keep it unidirectional. I think.
+
     public Package() {
     }
 

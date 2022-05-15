@@ -12,7 +12,7 @@ public class TrimFeature {
     private Feature feature;
     
     @Id
-    @JoinColumn(name="package_id")
+    @JoinColumn(name="trim_id")
     @ManyToOne
     private Trim trim;
 

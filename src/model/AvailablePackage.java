@@ -1,10 +1,12 @@
 package model;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
 @Entity(name = "availablePackages")
 public class AvailablePackage {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "available_id")
@@ -13,12 +15,19 @@ public class AvailablePackage {
     @Column(nullable = false)
     private int cost;
 
-    //Unidirectional One-To-Many from AvailablePackages->Packages
-    //AvailablePackage has many packages; Parent knows children, children don't know parent.
-    @OneToMany
-    @JoinColumn(name = "package_id")
-    private List<Package> packages; //package is a reserved word for java?
-
+    //Bidirectional many-to-many between AvailablePackage and Automobiles.
+    @ManyToMany(mappedBy = "availablePackages")
+    private Set<Automobile> automobiles;
+    
+    //Junction For Many-To-Many between Trim and Package.
+    @JoinColumn(name="trim_id")
+    @ManyToOne
+    private Trim trim;
+    
+    @JoinColumn(name="package_id")
+    @ManyToOne
+    private Package myPackage;
+    /**************************************************************/
 
     public AvailablePackage() {
     }
@@ -46,13 +55,6 @@ public class AvailablePackage {
         this.cost = cost;
     }
 
-    public List<Package> getPackages() {
-        return packages;
-    }
-
-    public void setPackages(List<Package> packages) {
-        this.packages = packages;
-    }
 
    
 }
