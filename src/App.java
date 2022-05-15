@@ -2,13 +2,40 @@ import java.util.List;
 import java.util.Scanner;
 import jakarta.persistence.*;
 import model.*;
+import model.Package; //Explicit import is good for "Package"
 
 public class App {
     public static void main(String[] args) throws Exception {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
         EntityManager em = factory.createEntityManager();
         System.out.println("Hopefully this works.");
-    }
+        //Add Features to database
+        em.getTransaction().begin();
+        Feature leatherSeats = new Feature("Leather Seats");
+        Feature hybridEngine = new Feature("Plug-in hybrid engine");
+        Feature powerDoors = new Feature("Power sliding doors");
+        Feature handsFreeDoors = new Feature("Hands-free sliding doors");
+        Feature fireTV = new Feature("Amazon FireTV");
+        Feature rearScreens = new Feature("Rear-Seat Entertainment Screens");
+        em.persist(leatherSeats);
+        Feature awd = new Feature("All-Wheel Drive");
+        Feature adaptiveCruise = new Feature("Adaptive Cruise Control");
+        //Add Packages to database
+        Package theater = new Package("Theater Package");
+        
+        
+        em.persist(hybridEngine);
+        em.persist(powerDoors);
+        em.persist(handsFreeDoors);
+        em.persist(fireTV);
+        em.persist(rearScreens);
+        em.persist(awd);
+        em.persist(adaptiveCruise);
+
+    
+        em.getTransaction().commit();
+        //Finish adding features to database
+    }   
 
     /*
      * public double stickerPrice(){
