@@ -41,8 +41,8 @@ public class Automobile {
     // "Adding Application Logic"
 
     public Set<Feature> getFeatures() {
-
-        Set<Feature> featureSet = new
+        //Does not work as intended.
+        Set<Feature> featureSet = new Set();
         // Get features from trim
         featureSet.addAll(this.getTrim().getTrimFeatures());
         // Get features from model
