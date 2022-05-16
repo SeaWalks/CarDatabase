@@ -27,6 +27,8 @@ public class App {
                         run.instantiateData();
                         System.out.println("Data instantiated.");
                         break;
+                    case 3:
+                        run.featureSearch();
                     case 2:
                         run.automobileLookup();
                         break;
@@ -48,6 +50,26 @@ public class App {
      */
 
     public void featureSearch() {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardb");
+        EntityManager em = factory.createEntityManager();
+        try (Scanner input = new Scanner(System.in)) {
+            System.out.println("Please enter a feature to lookup: ");
+            String featureInput = input.nextLine();
+            TypedQuery<Automobile> trimQuery = em.createQuery(
+                    "SELECT a FROM automobiles a JOIN a.trim t JOIN t.trimFeatures tf WHERE tf.feature = ( SELECT f FROM features f WHERE f.featureName = ?1 )", Automobile.class);
+            trimQuery.setParameter(1, featureInput);
+            try{
+                System.out.println("Automobile VINs: ");
+                List<Automobile> selectedCars = trimQuery.getResultList();
+                for(Automobile i : selectedCars){
+                    System.out.println(i.getVin());
+                }
+            }catch (NoResultException ex){
+                System.out.println("Feature not found.");
+            }
+
+
+        }
     }
 
     /*
@@ -268,4 +290,5 @@ public class App {
         //Commit changes to database
         em.getTransaction().commit();
     }
+
 }
